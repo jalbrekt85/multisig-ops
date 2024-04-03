@@ -242,4 +242,3 @@ if __name__ == "__main__":
     with open("report.txt", "w") as f:
         f.write(f"payload: {data}\n")
         f.write(f"hash: {hash.hex()}\n")
-
