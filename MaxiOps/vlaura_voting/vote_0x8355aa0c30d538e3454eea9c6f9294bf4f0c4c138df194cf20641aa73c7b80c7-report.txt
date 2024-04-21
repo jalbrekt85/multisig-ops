@@ -1,0 +1,59 @@
+Voting for: {'a-80/20 RDNT/WETH': 0.23965905797137133, 'MetaStable WETH/rETH': 0.16965462040039267, 'ComposableStable wstETH/WETH': 0.12517320650049543, '50/50 wstETH/ACX': 0.1277526607486336, 'ComposableStable sfrxETH/rETH/wstETH': 0.08066824986450409, 'ComposableStable USDT/USDC/GHO': 0.06271209421131572, 'g-ComposableStable WETH/wstETH': 0.05273662327211843, '80/20 ALCX/WETH': 0.048836533321232424, 'p-ComposableStable WMATIC/MaticX': 0.04273097359922659, 'a-ComposableStable wstETH/WETH': 0.02903632636326282, '50/50 rETH/RPL': 0.01390949144610874, 'a-ComposableStable USDT/DAI/USDC/USDC.e': 0.007130162301338215}
+
+hash: 0x8355aa0c30d538e3454eea9c6f9294bf4f0c4c138df194cf20641aa73c7b80c7
+relayer: https://relayer.snapshot.org/api/messages/8355aa0c30d538e3454eea9c6f9294bf4f0c4c138df194cf20641aa73c7b80c7
+
+payload: 
+{
+    "domain": {
+        "name": "snapshot",
+        "version": "0.1.4"
+    },
+    "types": {
+        "Vote": [
+            {
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "name": "space",
+                "type": "string"
+            },
+            {
+                "name": "timestamp",
+                "type": "uint64"
+            },
+            {
+                "name": "proposal",
+                "type": "bytes32"
+            },
+            {
+                "name": "choice",
+                "type": "string"
+            },
+            {
+                "name": "reason",
+                "type": "string"
+            },
+            {
+                "name": "app",
+                "type": "string"
+            },
+            {
+                "name": "metadata",
+                "type": "string"
+            }
+        ]
+    },
+    "message": {
+        "space": "gauges.aurafinance.eth",
+        "proposal": "0xab11ce51ee3ea9e45c9cbcabcc390b5fa8507e29fa351ca5d78b8084bcfbd724",
+        "choice": "{'133': 0.23965905797137133, '110': 0.16965462040039267, '93': 0.12517320650049543, '27': 0.1277526607486336, '72': 0.08066824986450409, '78': 0.06271209421131572, '214': 0.05273662327211843, '29': 0.048836533321232424, '179': 0.04273097359922659, '158': 0.02903632636326282, '18': 0.01390949144610874, '155': 0.007130162301338215}",
+        "app": "snapshot",
+        "reason": "",
+        "metadata": "{}",
+        "from": "0x9ff471F9f98F42E5151C7855fD1b5aa906b1AF7e",
+        "timestamp": 1713736782
+    }
+}
+
