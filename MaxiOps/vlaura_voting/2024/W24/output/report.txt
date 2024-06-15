@@ -1,0 +1,10 @@
+Voting for: {
+    "ComposableStable USDC-DAI-USDT/sDAI": 15.0,
+    "a-ComposableStable sFRAX/4POOL-BPT": 30.0,
+    "a-ComposableStable USDT/DAI/USDC/USDC.e": 35.0,
+    "b-ComposableStable USDbC/USDC/axlUSDC": 15.0,
+    "ComposableStable wstETH/WETH": 5.0
+}
+
+hash: 0xe5f05459466efcf33ed0adcfc137ea58275c10ad4bc00ef28d9c154de309927e
+relayer: https://relayer.snapshot.org/api/messages/0xe5f05459466efcf33ed0adcfc137ea58275c10ad4bc00ef28d9c154de309927e
