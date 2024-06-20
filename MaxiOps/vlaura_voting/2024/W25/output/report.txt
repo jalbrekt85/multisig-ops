@@ -1,0 +1,22 @@
+Voting for: {
+    "ComposableStable USDC-DAI-USDT/sDAI": 12.5,
+    "a-ComposableStable sFRAX/4POOL-BPT": 10.0,
+    "a-ComposableStable USDT/DAI/USDC/USDC.e": 5.0,
+    "a-Gyro AaveUSDCn/USDC": 2.3,
+    "a-Gyro AaveUSDT/USDT": 2.3,
+    "a-Gyroe AaveUSDCn/AaveUSDT": 5.4,
+    "50/50 STG/USDC": 3.52,
+    "ComposableStable wstETH/WETH": 4.01,
+    "MetaStable WETH/rETH": 5.92,
+    "ComposableStable rETH/weETH": 3.51,
+    "ComposableStable WETH/ezETH": 6.81,
+    "ComposableStable weETH/ezETH/rswETH": 8.73,
+    "ComposableStable sUSDe/USDC": 7.0,
+    "a-Gyroe WETH/WOETH": 5.0,
+    "b-Gyroe AaveUSDC/sDAI": 3.0,
+    "b-ComposableStable weETH/WETH": 5.0,
+    "a-ComposableStable wstETH/ETHx": 10.0
+}
+
+hash: 0x7a155f825094a5a5c298cfa19ab47d901d1c273471df1431628162597c93ea53
+relayer: https://relayer.snapshot.org/api/messages/0x7a155f825094a5a5c298cfa19ab47d901d1c273471df1431628162597c93ea53
