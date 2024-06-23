@@ -1,0 +1,2 @@
+hash: 0x48241502a2ffb55a7a8408e5c05d2c3a35087bbce19e42e6dce932ca4d09b7d3
+relayer: https://relayer.snapshot.org/api/messages/0x48241502a2ffb55a7a8408e5c05d2c3a35087bbce19e42e6dce932ca4d09b7d3
