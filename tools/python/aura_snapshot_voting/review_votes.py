@@ -46,7 +46,7 @@ def review_votes(week_string):
     gauge_labels = fetch_gauge_labels()
     
     # Check for corresponding snapshot labels
-    vote_df["Checksum Address"] = vote_df["Gauge Address"].apply(to_checksum_address)
+    vote_df["Checksum Address"] = vote_df["Gauge Address"].apply(lambda x: to_checksum_address(x.strip()))
     vote_df["Snapshot Label"] = vote_df["Checksum Address"].map(gauge_labels)
     missing_labels = vote_df[vote_df["Snapshot Label"].isna()]
     snapshot_label_check = len(missing_labels) == 0
