@@ -62,13 +62,13 @@ CSV file: `{os.path.relpath(csv_file, project_root)}`
 - Passes 100% check: {"✅" if allocation_check else "❌"}
 
 ### Snapshot Label Check
-- All gauge addresses have corresponding snapshot labels: {"✅" if snapshot_label_check else "❌"}
+- All gauge addresses have corresponding snapshot choices: {"✅" if snapshot_label_check else "❌"}
 {f"- Missing labels for {len(missing_labels)} gauge(s):" if not snapshot_label_check else ""}
 {missing_labels[["Chain", "Label", "Gauge Address"]].to_string(index=False) if not snapshot_label_check else ""}
 
 ### Vote Summary
 
-{vote_df[["Chain", "Label", "Gauge Address", "Allocation %"]].to_string(index=False)}
+{vote_df[["Chain", "Label", "Gauge Address", "Allocation %"]].to_markdown(index=False)}
 
 {"### ✅ All checks passed" if (allocation_check and snapshot_label_check) else "### ❌ Some checks failed"}
     """
