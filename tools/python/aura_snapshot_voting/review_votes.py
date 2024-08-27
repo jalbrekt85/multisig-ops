@@ -3,6 +3,8 @@ import glob
 import os
 import argparse
 from pathlib import Path
+from bal_addresses.utils import to_checksum_address
+import requests
 
 def find_project_root(current_path=None):
     anchor_file = "multisigs.md"
@@ -15,6 +17,13 @@ def find_project_root(current_path=None):
         raise FileNotFoundError("Project root not found")
     return find_project_root(parent)
 
+def fetch_gauge_labels():
+    GAUGE_MAPPING_URL = "https://raw.githubusercontent.com/aurafinance/aura-contracts/main/tasks/snapshot/gauge_choices.json"
+    response = requests.get(GAUGE_MAPPING_URL)
+    response.raise_for_status()
+    gauge_data = response.json()
+    return {to_checksum_address(x["address"]): x["label"] for x in gauge_data}
+
 def review_votes(week_string):
     year, week = week_string.split("-")
     project_root = find_project_root()
@@ -24,35 +33,53 @@ def review_votes(week_string):
     
     csv_files = glob.glob(str(input_dir / "*.csv"))
     if not csv_files:
-        raise FileNotFoundError(f"No CSV files found in {input_dir}")
-    
+        return "No CSV files found in the input directory."
+
     csv_file = csv_files[0]
     vote_df = pd.read_csv(csv_file)
     
-    # Perform checks
+    # Remove NA rows
+    original_row_count = len(vote_df)
+    vote_df = vote_df.dropna(subset=["Gauge Address", "Label", "Allocation %"])
+    removed_row_count = original_row_count - len(vote_df)
+    
+    gauge_labels = fetch_gauge_labels()
+    
+    # Check for corresponding snapshot labels
+    vote_df["Checksum Address"] = vote_df["Gauge Address"].apply(to_checksum_address)
+    vote_df["Snapshot Label"] = vote_df["Checksum Address"].map(gauge_labels)
+    missing_labels = vote_df[vote_df["Snapshot Label"].isna()]
+    snapshot_label_check = len(missing_labels) == 0
+    
     total_allocation = vote_df["Allocation %"].str.rstrip("%").astype(float).sum()
-    allocation_check = abs(total_allocation - 100) < 0.001
+    allocation_check = abs(total_allocation - 100) < 0.0001
     
     # Generate report
     report = f"""## vLAURA Votes Review
 
-CSV file: `{os.path.relpath(csv_file, project_root)}`
+    CSV file: `{os.path.relpath(csv_file, project_root)}`
 
-### Allocation Check
-Total allocation: {total_allocation:.2f}%
-Passes 100% check: {"Yes" if allocation_check else "No"}
+    ### Allocation Check
+    - Total allocation: {total_allocation:.2f}%
+    - Passes 100% check: {"Yes" if allocation_check else "No"}
 
-### Vote Summary
-{vote_df[["Chain", "Gauge Address", "Allocation %"]].to_string(index=False)}
+    ### Snapshot Label Check
+    - All gauge addresses have corresponding snapshot labels: {"Yes" if snapshot_label_check else "No"}
+    {f"- Missing labels for {len(missing_labels)} gauge(s):" if not snapshot_label_check else ""}
+    {missing_labels[["Chain", "Label", "Gauge Address"]].to_string(index=False) if not snapshot_label_check else ""}
 
-{"### ✅ All checks passed" if allocation_check else "### ❌ Some checks failed"}
-"""
+    ### Vote Summary
+
+    {vote_df[["Chain", "Label", "Gauge Address", "Allocation %"]].to_string(index=False)}
+
+
+    {"### ✅ All checks passed" if (allocation_check and snapshot_label_check) else "### ❌ Some checks failed"}
+    """
     
     with open("review_output.md", "w") as f:
         f.write(report)
     
-    if not allocation_check:
-        raise ValueError("Allocation does not sum to 100%")
+    return report
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Vote review script")
