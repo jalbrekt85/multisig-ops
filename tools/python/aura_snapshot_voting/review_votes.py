@@ -39,9 +39,7 @@ def review_votes(week_string):
     vote_df = pd.read_csv(csv_file)
     
     # Remove NA rows
-    original_row_count = len(vote_df)
     vote_df = vote_df.dropna(subset=["Gauge Address", "Label", "Allocation %"])
-    removed_row_count = original_row_count - len(vote_df)
     
     gauge_labels = fetch_gauge_labels()
     
@@ -71,7 +69,6 @@ def review_votes(week_string):
     ### Vote Summary
 
     {vote_df[["Chain", "Label", "Gauge Address", "Allocation %"]].to_string(index=False)}
-
 
     {"### ✅ All checks passed" if (allocation_check and snapshot_label_check) else "### ❌ Some checks failed"}
     """
