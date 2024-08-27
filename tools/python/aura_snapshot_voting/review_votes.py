@@ -55,22 +55,22 @@ def review_votes(week_string):
     # Generate report
     report = f"""## vLAURA Votes Review
 
-    CSV file: `{os.path.relpath(csv_file, project_root)}`
+CSV file: `{os.path.relpath(csv_file, project_root)}`
 
-    ### Allocation Check
-    - Total allocation: {total_allocation:.2f}%
-    - Passes 100% check: {"Yes" if allocation_check else "No"}
+### Allocation Check
+- Total allocation: {total_allocation:.2f}%
+- Passes 100% check: {"✅" if allocation_check else "❌"}
 
-    ### Snapshot Label Check
-    - All gauge addresses have corresponding snapshot labels: {"Yes" if snapshot_label_check else "No"}
-    {f"- Missing labels for {len(missing_labels)} gauge(s):" if not snapshot_label_check else ""}
-    {missing_labels[["Chain", "Label", "Gauge Address"]].to_string(index=False) if not snapshot_label_check else ""}
+### Snapshot Label Check
+- All gauge addresses have corresponding snapshot labels: {"✅" if snapshot_label_check else "❌"}
+{f"- Missing labels for {len(missing_labels)} gauge(s):" if not snapshot_label_check else ""}
+{missing_labels[["Chain", "Label", "Gauge Address"]].to_string(index=False) if not snapshot_label_check else ""}
 
-    ### Vote Summary
+### Vote Summary
 
-    {vote_df[["Chain", "Label", "Gauge Address", "Allocation %"]].to_string(index=False)}
+{vote_df[["Chain", "Label", "Gauge Address", "Allocation %"]].to_string(index=False)}
 
-    {"### ✅ All checks passed" if (allocation_check and snapshot_label_check) else "### ❌ Some checks failed"}
+{"### ✅ All checks passed" if (allocation_check and snapshot_label_check) else "### ❌ Some checks failed"}
     """
     
     with open("review_output.md", "w") as f:
