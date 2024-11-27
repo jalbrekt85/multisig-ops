@@ -33,14 +33,22 @@ jobs:
         id: generate-branch-name
         run: |
           echo "branch=paladin-bribes-$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "feat: recycle paladin bribes"
-          title: "Recycle Paladin Bribes - $(date +'%Y-%m-%d')"
-          body: "This PR contains the artifacts from recycling Paladin bribes through Hidden Hand"
+          title: "Recycle Paladin Bribes - ${{ steps.generate-branch-name.outputs.date }}"
+          body: |
+            Run result from [`tools/python/paladin_claiming/recycle_bribes.py`](../../blob/main/tools/python/paladin_claiming/recycle_bribes.py)
+
+            Generated artifacts:
+            * [Mainnet claimed bribes](../../blob/paladin-bribes-${{ steps.generate-branch-name.outputs.date }}/tools/python/paladin_claiming/claim_output/mainnet/paladin_claims_mainnet_${{ steps.generate-branch-name.outputs.date }}.csv)
+            * [Mainnet tokens to sell](../../blob/paladin-bribes-${{ steps.generate-branch-name.outputs.date }}/tools/python/paladin_claiming/claim_output/mainnet/paladin_tokens_to_sell_mainnet_${{ steps.generate-branch-name.outputs.date }}.csv)
+            * [Arbitrum claimed bribes](../../blob/paladin-bribes-${{ steps.generate-branch-name.outputs.date }}/tools/python/paladin_claiming/claim_output/arbitrum/paladin_claims_arbitrum_${{ steps.generate-branch-name.outputs.date }}.csv)
+            * [Arbitrum tokens to sell](../../blob/paladin-bribes-${{ steps.generate-branch-name.outputs.date }}/tools/python/paladin_claiming/claim_output/arbitrum/paladin_tokens_to_sell_arbitrum_${{ steps.generate-branch-name.outputs.date }}.csv)
           branch: ${{ steps.generate-branch-name.outputs.branch }}
           labels: "Automatic Payload"
           delete-branch: true
