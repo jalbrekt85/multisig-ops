@@ -1,0 +1,54 @@
+name: Recycle Paladin Bribes
+
+on:
+  workflow_dispatch:
+
+jobs:
+  recycle_bribes:
+    runs-on: ubuntu-latest
+    outputs:
+      pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+      pull-request-branch: ${{ steps.generate-branch-name.outputs.branch }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install -r tools/python/requirements.txt
+
+      - name: Run script
+        env:
+          DRPC_KEY: ${{ secrets.DRPC_KEY }}
+        run: |
+          python tools/python/paladin_claiming/recycle_bribes.py
+
+      - name: Generate branch name
+        id: generate-branch-name
+        run: |
+          echo "branch=paladin-bribes-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "feat: recycle paladin bribes"
+          title: "Recycle Paladin Bribes"
+          body: "This PR contains the artifacts from recycling Paladin bribes through Hidden Hand"
+          branch: ${{ steps.generate-branch-name.outputs.branch }}
+          labels: "Automatic Payload"
+          delete-branch: true
+
+  run_reports:
+    needs: recycle_bribes
+    secrets: inherit
+    uses: "BalancerMaxis/multisig-ops/.github/workflows/run_reports_reusable.yaml@main"
+    with:
+      pr_number: ${{ needs.recycle_bribes.outputs.pull-request-number }}
+      checkout_ref: ${{ needs.recycle_bribes.outputs.pull-request-branch }} 
