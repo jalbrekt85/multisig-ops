@@ -32,14 +32,14 @@ jobs:
       - name: Generate branch name
         id: generate-branch-name
         run: |
-          echo "branch=paladin-bribes-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+          echo "branch=paladin-bribes-$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "feat: recycle paladin bribes"
-          title: "Recycle Paladin Bribes"
+          title: "Recycle Paladin Bribes - $(date +'%Y-%m-%d')"
           body: "This PR contains the artifacts from recycling Paladin bribes through Hidden Hand"
           branch: ${{ steps.generate-branch-name.outputs.branch }}
           labels: "Automatic Payload"
