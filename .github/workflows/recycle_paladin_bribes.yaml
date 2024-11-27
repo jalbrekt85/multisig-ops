@@ -39,7 +39,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: "feat: recycle paladin bribes"
+          commit-message: "feat: recycle paladin bribes - ${{ steps.generate-branch-name.outputs.date }}"
           title: "Recycle Paladin Bribes - ${{ steps.generate-branch-name.outputs.date }}"
           body: |
             Run result from [`tools/python/paladin_claiming/recycle_bribes.py`](../blob/main/tools/python/paladin_claiming/recycle_bribes.py)
