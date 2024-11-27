@@ -42,13 +42,13 @@ jobs:
           commit-message: "feat: recycle paladin bribes"
           title: "Recycle Paladin Bribes - ${{ steps.generate-branch-name.outputs.date }}"
           body: |
-            Run result from [`tools/python/paladin_claiming/recycle_bribes.py`](../../blob/main/tools/python/paladin_claiming/recycle_bribes.py)
+            Run result from [`tools/python/paladin_claiming/recycle_bribes.py`](../blob/main/tools/python/paladin_claiming/recycle_bribes.py)
 
             Generated artifacts:
-            * [Mainnet claimed bribes](../../blob/paladin-bribes-${{ steps.generate-branch-name.outputs.date }}/tools/python/paladin_claiming/claim_output/mainnet/paladin_claims_mainnet_${{ steps.generate-branch-name.outputs.date }}.csv)
-            * [Mainnet tokens to sell](../../blob/paladin-bribes-${{ steps.generate-branch-name.outputs.date }}/tools/python/paladin_claiming/claim_output/mainnet/paladin_tokens_to_sell_mainnet_${{ steps.generate-branch-name.outputs.date }}.csv)
-            * [Arbitrum claimed bribes](../../blob/paladin-bribes-${{ steps.generate-branch-name.outputs.date }}/tools/python/paladin_claiming/claim_output/arbitrum/paladin_claims_arbitrum_${{ steps.generate-branch-name.outputs.date }}.csv)
-            * [Arbitrum tokens to sell](../../blob/paladin-bribes-${{ steps.generate-branch-name.outputs.date }}/tools/python/paladin_claiming/claim_output/arbitrum/paladin_tokens_to_sell_arbitrum_${{ steps.generate-branch-name.outputs.date }}.csv)
+            * [Mainnet claimed bribes](../tree/${{ steps.generate-branch-name.outputs.branch }}/tools/python/paladin_claiming/claim_output/mainnet/paladin_claims_mainnet_${{ steps.generate-branch-name.outputs.date }}.csv)
+            * [Mainnet tokens to sell](../tree/${{ steps.generate-branch-name.outputs.branch }}/tools/python/paladin_claiming/claim_output/mainnet/paladin_tokens_to_sell_mainnet_${{ steps.generate-branch-name.outputs.date }}.csv)
+            * [Arbitrum claimed bribes](../tree/${{ steps.generate-branch-name.outputs.branch }}/tools/python/paladin_claiming/claim_output/arbitrum/paladin_claims_arbitrum_${{ steps.generate-branch-name.outputs.date }}.csv)
+            * [Arbitrum tokens to sell](../tree/${{ steps.generate-branch-name.outputs.branch }}/tools/python/paladin_claiming/claim_output/arbitrum/paladin_tokens_to_sell_arbitrum_${{ steps.generate-branch-name.outputs.date }}.csv)
           branch: ${{ steps.generate-branch-name.outputs.branch }}
           labels: "Automatic Payload"
           delete-branch: true
