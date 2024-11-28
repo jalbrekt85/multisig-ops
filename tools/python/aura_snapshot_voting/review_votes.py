@@ -5,7 +5,12 @@ import argparse
 from pathlib import Path
 from bal_addresses.utils import to_checksum_address
 import requests
-from vote import prepare_vote_data, create_vote_payload, hash_eip712_message, _get_prop_and_determine_date_range
+from vote import (
+    prepare_vote_data,
+    create_vote_payload,
+    hash_eip712_message,
+    _get_prop_and_determine_date_range,
+)
 
 
 def find_project_root(current_path=None):
