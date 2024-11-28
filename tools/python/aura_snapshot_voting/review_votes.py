@@ -62,7 +62,7 @@ def review_votes(week_string):
         vote_df, vote_choices = prepare_vote_data(vote_df, prop)
         data = create_vote_payload(vote_choices, prop)
         hash = hash_eip712_message(data)
-        vote_simulation = f"\n### Vote Simulation\nSuccessfully simulated vote preparation.\nMessage hash: 0x{hash.hex()}"
+        vote_simulation = f"\n### Vote Simulation\nSuccessfully simulated vote preparation.\nMessage hash: `0x{hash.hex()}`"
         vote_check = True
     except Exception as e:
         vote_simulation = f"\n### Vote Simulation\n❌ Error simulating vote: {str(e)}"
@@ -87,7 +87,7 @@ CSV file: `{os.path.relpath(csv_file, project_root)}`
 
 {vote_df[["Chain", "Label", "Gauge Address", "Allocation %"]].to_markdown(index=False)}
 
-{"### ✅ All checks passed" if (allocation_check and snapshot_label_check and vote_check) else "### ❌ Some checks failed"}
+{"### ✅ All checks passed! Ready to vote!" if (allocation_check and snapshot_label_check and vote_check) else "### ❌ Some checks failed - please review the issues above"}
     """
 
     with open("review_output.md", "w") as f:
