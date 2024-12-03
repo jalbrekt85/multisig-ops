@@ -41,7 +41,7 @@ GAUGE_MAPPING_URL = "https://raw.githubusercontent.com/aurafinance/aura-contract
 GAUGE_SNAPSHOT_URL = "https://raw.githubusercontent.com/aurafinance/aura-contracts/main/tasks/snapshot/gauge_snapshot.json"
 
 flatbook = AddrBook("mainnet").flatbook
-vlaura_safe_addr = flatbook["multisigs/vote_incentive_recycling"]
+vlaura_safe_addr = flatbook["multisigs/maxi_omni"]
 sign_msg_lib_addr = flatbook["gnosis/sign_message_lib"]
 
 Account.enable_unaudited_hdwallet_features()
@@ -137,7 +137,7 @@ def prepare_vote_data(vote_df, prop):
     assert vote_df["share"].sum() == approx(100, abs=0.0001)
 
     vote_choices = dict(zip(vote_df["snapshot_index"], vote_df["share"]))
-    
+
     return vote_df, vote_choices
 
 
